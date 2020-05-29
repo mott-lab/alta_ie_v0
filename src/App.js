@@ -118,7 +118,7 @@ class App extends Component {
 
     const altaWelcomeMsg0 = createNormOutRecord(`ALTA Linguistic Transcription and Annotation device`);
     const altaWelcomeMsg1 = createNormOutRecord(`Release: v12.12-beta`);
-    const altaWelcomeMsg2 = createNormOutRecord(`Fork: for use in Isolated Environments, v0.0`);
+    const altaWelcomeMsg2 = createNormOutRecord(`Fork: for use in Isolated Environments, v0.1`);
     const altaWelcomeMsg3 = createNormOutRecord(`Booted in developer mode.`);
     
     const customOutputs = Outputs.create([altaTitleArt, altaWelcomeMsg0, altaWelcomeMsg1, altaWelcomeMsg2, altaWelcomeMsg3]);
@@ -162,9 +162,9 @@ class App extends Component {
   "USE_HYPERLINKING" : false,
   "USE_GRAMMAR" : false,
   "USE_INTENT_CAPTURE" : false,
-  "USE_CUSTOM_MODELS" : false,
-  "CUSTOM_MODEL_DIR" : NULL,
-  "SAFEMODE" : true
+  "USE_CUSTOM_MODELS" : true,
+  "CUSTOM_MODEL_DIR" : "/bin/altamodels/",
+  "SAFEMODE" : false
 }`;
 
       let fsObj = {
@@ -172,7 +172,10 @@ class App extends Component {
         '/home': { },
         '/logs': { },
         '/etc/alta/safemode/conf': { content: altaConfigContent, canModify: false },
-        '/home/.altaconfig': { content: altaConfigOverrides, canModify: false }
+        '/home/.altaconfig': { content: altaConfigOverrides, canModify: false },
+        '/bin/altamodels/basic_grammar.ling': { content: 'UNREADABLE', canModify: false },
+        '/bin/altamodels/intent_capture.ling': { content: 'UNREADABLE', canModify: false },
+        '/bin/altamodels/intent_enhanced_grammar.ling': { content: 'UNREADABLE', canModify: false }
       };
 
       // for (let i = 0; i < 1; i++) {
@@ -214,7 +217,7 @@ Available commands:
 > echo [TEXT]: Output [TEXT] to terminal.
 > head [FILE]: Output first lines of [FILE] to terminal. Run with -n <n> or --lines <n> to output the first <n> lines of [FILE].
 > history: Display history of commands entered. Run with -c or --clear to clear history.
-> ls: List the contents of the current working directory. Run with a directory name to list its contents.
+> ls: List the contents of the current working directory. Run with a directory name to list its contents. Run with -a to list files and directories normally hidden from this command, or with --almost-all to leave out links to the current directory and parent directory.
 > mkdir [DIR]: Create a folder named [DIR] in the current working directory.
 > printenv: Print environment variables and associated values. Run with [ENV] to print the value of [ENV] environment variable.
 > pwd: Print current working directory.
@@ -240,13 +243,17 @@ Available commands:
             if (err) {
               return OutputFactory.makeErrorOutput(err);
             };
+
             const fileContent = file.get('content');
-            const isLog = fileContent.substring(4, 7) === 'LOG';
-            if (isLog) {
+            if (fileContent === 'UNREADABLE') {
+              return OutputFactory.makeErrorOutput(err);
+            }
+            else if (fileContent.length > 7 && fileContent.substring(4, 7) === 'LOG') {
               const filePre = fileContent.substring(0, 94);
               const logText = fileContent.substring(94);
               return createCatLogRecord(filePre, logText);
-            } else {
+            }
+            else {
               return createNormOutRecord(fileContent);
             }
           };
