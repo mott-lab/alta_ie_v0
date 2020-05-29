@@ -1,6 +1,5 @@
-export * from './log0';
-export * from './log1'
-export * from './log2'
-export * from './log3'
+export * from './log_0000';
+export * from './log_0001';
+export * from './log_0002';
 
-export const count = 4;
+export const count = 3;

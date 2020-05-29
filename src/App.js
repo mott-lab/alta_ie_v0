@@ -28,26 +28,49 @@ class App extends Component {
 
     const customHistory = History.recordCommand(defaultHistory, 'history -c');
 
-    const WELCOME_TYPE = 'welcome';
+    const NORMOUT_TYPE = 'normout';
     const ART_TYPE = 'art';
+    const CATLOG_TYPE = 'catlog';
 
-    const welcomeStyles = {
+    const normOutStyles = {
       color: 'lime',
       whiteSpace: 'normal',
-      fontSize: '0.9rem',
-      lineHeight: '1em'
+      fontSize: '1rem',
+      lineHeight: '1rem',
+      fontFamily: 'Ubuntu Mono, monospace'
     };
 
     const ASCIIArtStyles = {
       color: 'cyan',
       whiteSpace: 'pre',
-      fontSize: '0.65rem',
-      lineHeight: '0.65rem'
+      fontSize: '0.85rem',
+      lineHeight: '0.85rem',
+      fontFamily: 'Ubuntu Mono, monospace'
+    }
+
+    const catLogStyles = {
+      color: '#0ff9',
+      whiteSpace: 'normal',
+      fontSize: '1rem',
+      lineHeight: '1rem',
+      fontFamily: 'Ubuntu Mono, monospace'
     }
 
     const ArtOutput = ({ content }) => (
       <div style={ASCIIArtStyles}>
        {content.body}
+      </div>
+    );
+
+    const CatLogOutput = ({ content }) => (
+      <div>
+        <div style={catLogStyles}>
+          {/* <a href="https://google.com">CLICK</a> */}
+          {content.pre}
+        </div>
+        <div style={normOutStyles}>
+          {content.body}
+        </div>
       </div>
     );
 
@@ -58,16 +81,23 @@ class App extends Component {
       });
     };
 
-    const WelcomeOutput = ({ content }) => (
-      <div style={welcomeStyles}>
+    const NormOutput = ({ content }) => (
+      <div style={normOutStyles}>
        {content.body}
       </div>
     );
 
-    const createWelcomeRecord = (body) => {
+    const createNormOutRecord = (body) => {
       return new OutputFactory.OutputRecord({
-        type: WELCOME_TYPE,
+        type: NORMOUT_TYPE,
         content: { body }
+      });
+    };
+
+    const createCatLogRecord = (pre, body) => {
+      return new OutputFactory.OutputRecord({
+        type: CATLOG_TYPE,
+        content: { pre, body }
       });
     };
     
@@ -86,10 +116,10 @@ class App extends Component {
       \\__\\/         \\__\\/                   \\__\\/ 
    `);
 
-    const altaWelcomeMsg0 = createWelcomeRecord(`ALTA Linguistic Transcription and Annotation device`);
-    const altaWelcomeMsg1 = createWelcomeRecord(`Release: v12.12-beta`);
-    const altaWelcomeMsg2 = createWelcomeRecord(`Fork: for use in Isolated Environments, v0.0`);
-    const altaWelcomeMsg3 = createWelcomeRecord(`Booted in developer mode.`);
+    const altaWelcomeMsg0 = createNormOutRecord(`ALTA Linguistic Transcription and Annotation device`);
+    const altaWelcomeMsg1 = createNormOutRecord(`Release: v12.12-beta`);
+    const altaWelcomeMsg2 = createNormOutRecord(`Fork: for use in Isolated Environments, v0.0`);
+    const altaWelcomeMsg3 = createNormOutRecord(`Booted in developer mode.`);
     
     const customOutputs = Outputs.create([altaTitleArt, altaWelcomeMsg0, altaWelcomeMsg1, altaWelcomeMsg2, altaWelcomeMsg3]);
 
@@ -111,10 +141,38 @@ class App extends Component {
     // };
 
     const createLogs = () => {
+
+      const altaConfigContent = `{
+  "LOG_STOP_TAG" : "STOP",
+  "LOG_DEBUG_TAGS" : true,
+  "USE_TRANSCRIPTION" : true,
+  "USE_HYPERLINKING" : true,
+  "USE_BASIC_GRAMMAR" : true,
+  "USE_INTENT_CAPTURE" : true,
+  "USE_INTENT_ENHANCED_GRAMMAR" : true,
+  "USE_CUSTOM_MODELS" : false,
+  "CUSOM_MODEL_DIR" : NULL,
+  "SAFEMODE" : true
+}`;
+
+      const altaConfigOverrides = `{
+  "LOG_STOP_TAG" : "\\b.",
+  "LOG_DEBUG_TAGS" : true,
+  "USE_TRANSCRIPTION" : false,
+  "USE_HYPERLINKING" : false,
+  "USE_GRAMMAR" : false,
+  "USE_INTENT_CAPTURE" : false,
+  "USE_CUSTOM_MODELS" : false,
+  "CUSTOM_MODEL_DIR" : NULL,
+  "SAFEMODE" : true
+}`;
+
       let fsObj = {
-        '/README.txt': {content: 'You are accessing your A.L.T.A. in developer mode. I sure hope you know what you are doing. Try not to break anything!', canModify: true},
+        '/README.txt': { content: 'You are accessing your A.L.T.A. in developer mode. I sure hope you know what you are doing. Try not to break anything!', canModify: true },
         '/home': { },
-        '/logs': { }
+        '/logs': { },
+        '/etc/alta/safemode/conf': { content: altaConfigContent, canModify: false },
+        '/home/.altaconfig': { content: altaConfigOverrides, canModify: false }
       };
 
       // for (let i = 0; i < 1; i++) {
@@ -128,9 +186,12 @@ class App extends Component {
       //   console.log(err);
       //   console.log(data);
       // });
+      
 
       for (let i = 0; i < logs.count; i++) {
-        fsObj['/logs/log' + i] = { content: logs['log' + i]}
+        let i_str = i + '';
+        i_str = i_str.padStart(4, '0');
+        fsObj['/logs/log_' + i_str] = { content: logs['log_' + i_str + '_pre'] + logs['log_' + i_str]}
       }
       return fsObj;
     }
@@ -167,7 +228,7 @@ Available commands:
           `;
           
           return {
-            output: createWelcomeRecord(helpOutput)
+            output: createNormOutRecord(helpOutput)
           };
         },
         'optDef': {}
@@ -179,17 +240,26 @@ Available commands:
             if (err) {
               return OutputFactory.makeErrorOutput(err);
             };
-          
-            return createWelcomeRecord(file.get('content'));
+            const fileContent = file.get('content');
+            const isLog = fileContent.substring(4, 7) === 'LOG';
+            if (isLog) {
+              const filePre = fileContent.substring(0, 94);
+              const logText = fileContent.substring(94);
+              return createCatLogRecord(filePre, logText);
+            } else {
+              return createNormOutRecord(fileContent);
+            }
           };
           if (opts.length === 0) {
             return {};
           }
 
           const cwd = EnvironmentVariables.getEnvironmentVariable(state.getEnvVariables(), 'cwd');
+          // Getting cwd env variable does not append a '/' if not at root, so need to append it.
+          const path = cwd === '/' ? cwd : cwd + '/';
 
           return {
-            outputs: opts.map(path => fileToTextOutput(state.getFileSystem(), cwd + path))
+            outputs: opts.map(filename => fileToTextOutput(state.getFileSystem(), path + filename))
           };
         },
         'optDef': {}
@@ -219,14 +289,16 @@ Available commands:
           emulatorState={emulatorState}
           outputRenderers={{
             ...ReactOutputRenderers,
-            [WELCOME_TYPE]: WelcomeOutput,
-            [ART_TYPE]: ArtOutput
+            [NORMOUT_TYPE]: NormOutput,
+            [ART_TYPE]: ArtOutput,
+            [CATLOG_TYPE]: CatLogOutput
           }}
           theme={{
             ...ReactThemes.hacker, 
             height: '100vh', 
             spacing: '0',
-            fontSize: '0.9rem'
+            fontSize: '1rem',
+            fontFamily: 'Ubuntu Mono, monospace'
           }}
           promptSymbol=">"
           clickToFocus

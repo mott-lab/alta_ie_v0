@@ -21,7 +21,11 @@
   padding: 0 !important;
   white-space: normal !important;
 }
+input {
+  font-family: 'Ubuntu Mono' !important;
+}
 
 div {
   white-space: pre-wrap !important;
+  font-family: 'Ubuntu Mono' !important;
 }
