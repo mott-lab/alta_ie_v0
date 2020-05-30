@@ -9,7 +9,9 @@
     "browserify-fs": "^1.0.0",
     "javascript-terminal": "^1.0.3",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
     "react-terminal-component": "^1.4.1"
   },

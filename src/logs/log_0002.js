@@ -12,6 +12,8 @@ Alright! That didn't take very long. I'm confident this thing isn't trying to pi
 
 Security work is done for now. It looked like those fancy linguistic features all have some interaction with the internet, and they are useless without a connection. I was able to load in some custom AI models I had lying around from the early days of ALTA development--before it was even called an ALTA. My team made some that work really quite well and should meet my needs. After all, I'm not trying to talk to anyone or anything with this device. So, those models are all saved locally.
 
-I updated the repo release to be v0.1. Not like this thing will have any kind of release, but it will be useful to keep track of the past here.
+I updated the repo release to be v0.1. Not like this thing will have any kind of release, but it will be useful to keep track of the timeline here. 
+
+out.
 \n\
 `;

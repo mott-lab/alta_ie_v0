@@ -1,8 +1,10 @@
-.App {
-  height: 100vh;
-  width: 100vw;
+.AltaTerminal {
+  /* height: 100vh;
+  width: 100vw; */
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
 }
 
 .terminalContainer {
@@ -28,4 +30,56 @@ input {
 div {
   white-space: pre-wrap !important;
   font-family: 'Ubuntu Mono' !important;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-link {
+  color: rgba(255, 255, 255, 0.6) !important;
+  margin-right: 1rem;
+}
+
+.custom-link:hover {
+  color: rgba(255, 255, 255, 0.4) !important;
+  text-decoration: initial;
+}
+
+.custom-link-active {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.custom-link-active:hover {
+  color: rgba(255, 255, 255, 0.4) !important;
+  text-decoration: initial;
+}
+
+.nav {
+  min-width: 100%;
+  background-color: #000e;
+  color: white;
+  text-align: right;
+}
+
+.Home {
+  background-color: #000e;
+  color: #fffa;
+  flex-grow: 1;
+}
+
+table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+  padding: .5rem;
+}
+
+a {
+  color: #0ffc;
+}
+
+a:hover {
+  color: #0fff;
 }
