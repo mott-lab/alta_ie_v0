@@ -14,14 +14,6 @@ import * as logs from './logs';
 class AltaTerminal extends Component {
 
   render() {
-    // const emulator = new Emulator();
-    // let emulatorState = EmulatorState.createEmpty();
-    // let defaultHistory = emulatorState.getHistory();
-    
-
-    // let textOutput = OutputFactory.makeTextOutput(`Hello there`);
-    // let customOutputs = Outputs.create([textOutput]);
-    // emulatorState.setOutputs(customOutputs);
 
     const defaultState = EmulatorState.createEmpty();
     const defaultHistory = defaultState.getHistory();
@@ -123,23 +115,6 @@ class AltaTerminal extends Component {
     
     const customOutputs = Outputs.create([altaTitleArt, altaWelcomeMsg0, altaWelcomeMsg1, altaWelcomeMsg2, altaWelcomeMsg3]);
 
-    // const readTextFile = file => {
-    //   var rawFile = new XMLHttpRequest();
-    //   rawFile.open("GET", file, false);
-    //   rawFile.onreadystatechange = () => {
-    //       if (rawFile.readyState === 4) {
-    //         if (rawFile.status === 200 || rawFile.status == 0) {
-    //           var allText = rawFile.responseText;
-    //           console.log("allText: ", allText);
-    //           this.setState({
-    //               fundData: allText
-    //           });
-    //         }
-    //       }
-    //   };
-    //   rawFile.send(null);
-    // };
-
     const createLogs = () => {
 
       const altaConfigContent = `{
@@ -177,19 +152,6 @@ class AltaTerminal extends Component {
         '/bin/altamodels/intent_capture.ling': { content: 'UNREADABLE', canModify: false },
         '/bin/altamodels/intent_enhanced_grammar.ling': { content: 'UNREADABLE', canModify: false }
       };
-
-      // for (let i = 0; i < 1; i++) {
-        // let logname = process.env.PUBLIC_URL + '/logs/log-' + 0;
-        // let f = readTextFile(logname);
-        // console.log(f);
-        // console.log(logname);
-      // }
-      // let logname = process.env.PUBLIC_URL;
-      // fs.readdir(logname, 'utf-8', function(err, data) {
-      //   console.log(err);
-      //   console.log(data);
-      // });
-      
 
       for (let i = 0; i < logs.count; i++) {
         let i_str = i + '';
@@ -249,8 +211,8 @@ Available commands:
               return OutputFactory.makeErrorOutput(err);
             }
             else if (fileContent.length > 7 && fileContent.substring(4, 7) === 'LOG') {
-              const filePre = fileContent.substring(0, 94);
-              const logText = fileContent.substring(94);
+              const filePre = fileContent.substring(0, 101);
+              const logText = fileContent.substring(101);
               return createCatLogRecord(filePre, logText);
             }
             else {
@@ -284,11 +246,6 @@ Available commands:
                           .setFileSystem(altaFS)
                           .setEnvVariables(altaEnvVariables)
                           .setCommandMapping(altaCommandMapping);
-
-
-    // FileOp.writeFile(emulatorState.getFileSystem(), resolvePath(emulatorState, ''), FileUtil.makeFile());
-    
-
 
     return (
       <div className="AltaTerminal">
