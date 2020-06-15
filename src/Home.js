@@ -24,13 +24,13 @@ render() {
         Okay, we've managed to throw together a protocol to interpret these signals. It does not feel like a very robust protocol, but Don seems to think it will hold up. He did most of the work on it, so I trust him. This protocol is like a lens into this underlying signal, right?
       </p>
       <p>
-        I'm just having a hard time coming to terms with what this lens is revealing. 
+        I'm just having a hard time coming to terms with what this lens is showing us. 
       </p>
       <br />
       <hr />
       <h3>2020-06-11</h3>
       <p>
-        We haven't gotten anywhere useful with this data. I think I am spiraling out of reality the more I keep this between just the two of us. Don thinks I am insane for doing this, but I wanted to publish the data (alongside these personal journal entries) on the Internet in the hopes that someone else can provide some insight or at least share my fascination. 
+        We haven't gotten anywhere useful with this data. I think I am spiraling out of reality the more I keep this between just the two of us. Don thinks I am insane for doing this, but I wanted to publish this on the Internet in the hopes that someone else can provide some insight or at least share my fascination. 
       </p>
       <p>
         The data seems like it is a set of files on someone's computer. It's always changing and feels like the computer itself could crash, but it also feels beautifully stable. I have been able to open a connection to the source through an emulated computer terminal. It's not a complete terminal by any means, but thanks to <a href="https://github.com/rohanchandra/react-terminal-component/">rohanchandra</a>, I was able to spin up a simple version pretty quickly. It feels like the purest way to share this information right now. It doesn't look like a pretty squarespace website, but it is certainly not supposed to because it is mostly log files. All will be left as plaintext, but I might add some higher level enrichment to the data over time as this thing develops. You'll see when you access the files.
@@ -39,7 +39,7 @@ render() {
         All the data is timestamped, and it aligns with present days and times. But here's the thing: the year is stamped 64 years from now.
       </p>
       <p>
-        I think I found a wormhole that opens to some future slice of spacetime. I don't know how I found it, but I am trying to find out what I can do with it. Other people are going to have to find out how I got to it, where it physically is, whose it is, etc. All that isn't my specialty. I'm more on the human/software side.
+        I think I found a wormhole that opens to some future slice of space-time. I don't know how we found it, but I am trying to find out what I can do with it. Other people are going to have to find out how we got to it, where it physically is, whose it is, etc. All that isn't my specialty. I'm more on the human/software side.
       </p>
       <p>
         I know it's crazy. Just pick up the data. It might become clearer if you start working with it. More than anything, I want someone to convince me that this is not what I think it is.
