@@ -9,6 +9,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "browserify-fs": "^1.0.0",
+    "express": "^4.17.1",
     "javascript-terminal": "^1.0.3",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
