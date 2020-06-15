@@ -21,7 +21,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Router>
+        <Router basename='/alta_ie_v0'>
           <div className="nav">
             <NavLink to="/terminal" className="custom-link" activeClassName="custom-link-active">terminal</NavLink>
             <NavLink exact to="/" className="custom-link" activeClassName="custom-link-active">info</NavLink>
