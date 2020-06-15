@@ -2,7 +2,7 @@
   "name": "alta_ie_v0",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/alta_ie_v0",
+  "homepage": "http://localhost:3000/alta_ie_v0/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
