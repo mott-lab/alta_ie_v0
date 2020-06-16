@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from "react-router-dom";
 
 import './App.css';
 
@@ -82,7 +83,7 @@ render() {
         </tbody>
       </table>
       <p>
-        Click on the <a href="./terminal">terminal tab</a> to begin.
+        Click on the <NavLink to="/terminal">terminal tab</NavLink> to begin.
       </p>
       <p>
         Maybe someone reading this can find something I can't. As always, feedback and collaboration ideas are appreciated. Feel free to ping me.
