@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "54f460939b498c4802a0c795d5b33532",
+    "revision": "88c585f8d0fea8fa29f74c78ecd404ea",
     "url": "/alta_ie_v0/index.html"
   },
   {
