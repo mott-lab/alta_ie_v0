@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/alta_ie_v0/precache-manifest.88e2f76bd02789ba224125c082f92b3c.js"
+  "/alta_ie_v0/precache-manifest.35fc76bc76caa3e205fb4a0fba89e32d.js"
 );
 
 self.addEventListener('message', (event) => {
