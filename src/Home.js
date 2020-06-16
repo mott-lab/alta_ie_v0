@@ -83,7 +83,7 @@ render() {
         </tbody>
       </table>
       <p>
-        Click on the <NavLink to="/terminal">terminal tab</NavLink> to begin.
+        Click on the terminal tab at the top of the screen to begin.
       </p>
       <p>
         Maybe someone reading this can find something I can't. As always, feedback and collaboration ideas are appreciated. Feel free to ping me.
